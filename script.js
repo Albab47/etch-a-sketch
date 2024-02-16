@@ -2,6 +2,14 @@ const main = document.querySelector(".main");
 const gridContainer = document.querySelector("#grid-container");
 const gridBtn = document.querySelector(".btn-grid");
 
+function randomRGBColor() {
+  const r = Math.floor(Math.random() * 256);
+  const g = Math.floor(Math.random() * 256);
+  const b = Math.floor(Math.random() * 256);
+  const rbgColor = `rgb(${r}, ${g}, ${b})`;
+  return rbgColor;
+}
+
 function generateGrid(gridSize, parentElement) {
   for (i = 0; i < gridSize * gridSize; i++) {
     const gridSquare = document.createElement("div");
@@ -9,7 +17,7 @@ function generateGrid(gridSize, parentElement) {
     parentElement.style.gridTemplateColumns = `repeat(${gridSize}, 1fr)`;
     parentElement.style.gridTemplateRows = `repeat(${gridSize}, 1fr)`;
     gridSquare.addEventListener("mouseenter", () => {
-      gridSquare.style.backgroundColor = "#000";
+      gridSquare.style.backgroundColor = randomRGBColor();
     });
     parentElement.appendChild(gridSquare);
   }
