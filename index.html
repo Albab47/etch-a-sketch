@@ -8,16 +8,29 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
+    <!-- heading -->
     <header class="header">
       <h1 class="header__title">Etch a Sketch</h1>
-      <div class="header__buttons">
-        <button class="btn btn-grid">Grid size</button>
-      </div>
+      <!-- settings buttons -->
+      <section class="settings">
+        <button id="btnGridSize" class="btn">Grid size</button>
+        <button id="btnClearSketch" class="btn">Clear Sketch</button>
+        <button id="btnRainbow" class="btn">Rainbow Color</button>
+        <button id="btnDarkenColor" class="btn">Darken Color</button>
+        <button id="btnErase" class="btn">Erase</button>
+      </section>
     </header>
+
+    <!-- main -->
     <main class="main">
       <div id="grid-container"></div>
     </main>
 
-    <script src="script.js"></script>
+    <!-- footer -->
+    <footer class="footer">
+      <p>Made with &hearts; by <a href="#">Albab</a></p>
+    </footer>
+
+    <!-- <script src="script.js"></script> -->
   </body>
 </html>
