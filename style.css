@@ -47,9 +47,11 @@ body {
 
 #grid-container {
     display: grid;
-    width: 40rem;
-    height: 40rem;
+    width: 50rem;
+    height: 50rem;
     margin: 2rem auto;
+    border: 10px solid #3081D0;
+    border-radius: .5rem;
 }
 
 .grid-square {
