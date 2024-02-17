@@ -1,45 +1,102 @@
 const main = document.querySelector(".main");
-const gridContainer = document.querySelector("#grid-container");
-const gridBtn = document.querySelector(".btn-grid");
+const sketchArea = document.getElementById("grid-container");
+const widthAndHeight = sketchArea.offsetWidth;
 
-function randomRGBColor() {
-  const r = Math.floor(Math.random() * 256);
-  const g = Math.floor(Math.random() * 256);
-  const b = Math.floor(Math.random() * 256);
-  const rbgColor = `rgb(${r}, ${g}, ${b})`;
-  return rbgColor;
-}
-
+// function to generate square grids
 function generateGrid(gridSize, parentElement) {
-  for (i = 0; i < gridSize * gridSize; i++) {
+  const widthOrHeight = `${widthAndHeight / gridSize}px`;
+  const numOfSquares = gridSize * gridSize;
+
+  for (let i = 0; i < numOfSquares; i++) {
     const gridSquare = document.createElement("div");
+    gridSquare.style.width = widthOrHeight;
+    gridSquare.style.height = widthOrHeight;
     gridSquare.classList.add("grid-square");
-
-    parentElement.style.gridTemplateColumns = `repeat(${gridSize}, 1fr)`;
-    parentElement.style.gridTemplateRows = `repeat(${gridSize}, 1fr)`;
-
     gridSquare.addEventListener("mouseenter", () => {
-      gridSquare.style.backgroundColor = randomRGBColor();
+      gridSquare.style.background = "#010101";
     });
     parentElement.appendChild(gridSquare);
   }
 }
 
-// making default 16 X 16 grid layout
-generateGrid(16, gridContainer);
+// function to get random RGB color
+function getRandomRGB() {
+  const r = Math.floor(Math.random() * 256);
+  const g = Math.floor(Math.random() * 256);
+  const b = Math.floor(Math.random() * 256);
+  return `rgb(${r}, ${g}, ${b})`;
+}
 
-// button that randomly generate grid
-gridBtn.addEventListener("click", () => {
+document.addEventListener("DOMContentLoaded", () => {
+  generateGrid(16, sketchArea);
+});
+
+// button that take input from user and display generated grid
+const btnGridSize = document.getElementById("btnGridSize");
+btnGridSize.addEventListener("click", () => {
   const gridSize = parseInt(prompt("Enter the grid size: "));
 
   if (gridSize >= 100 || isNaN(gridSize)) {
     alert("Please enter number between 1 to 100");
-    prompt("Enter the grid size: ");
-  } else {
-    main.removeChild(document.querySelector("#grid-container"));
-    const gridContainer = document.createElement("div");
-    gridContainer.setAttribute("id", "grid-container");
-    generateGrid(gridSize, gridContainer);
-    main.appendChild(gridContainer);
+    gridSize = parseInt(prompt("Enter the grid size: "));
   }
+
+  main.removeChild(document.getElementById("grid-container"));
+  const sketchArea = document.createElement("div");
+  sketchArea.setAttribute("id", "grid-container");
+  generateGrid(gridSize, sketchArea);
+  main.appendChild(sketchArea);
+});
+
+// btn event to clear the sketch
+const btnClearSketch = document.getElementById("btnClearSketch");
+btnClearSketch.addEventListener("click", () => {
+  const squares = document.querySelectorAll(".grid-square");
+  squares.forEach((square) => {
+    square.style.background = "#fff";
+  });
+});
+
+// btn event to get random rgb color
+const btnRainbow = document.getElementById("btnRainbow");
+btnRainbow.addEventListener("click", () => {
+  const squares = document.querySelectorAll(".grid-square");
+  squares.forEach((square) => {
+    square.addEventListener("mouseenter", () => {
+      square.style.background = getRandomRGB();
+    });
+  });
+});
+
+// btn event to get darken color effect
+const btnDarkenColor = document.getElementById("btnDarkenColor");
+btnDarkenColor.addEventListener("click", () => {
+  const squares = document.querySelectorAll(".grid-square");
+  squares.forEach((square) => {
+    let colorR = Math.floor(Math.random() * 256);
+    let colorG = Math.floor(Math.random() * 256);
+    let colorB = Math.floor(Math.random() * 256);
+
+    square.addEventListener("mouseenter", () => {
+      let interaction = 0;
+      if (interaction < 10) {
+        square.style.backgroundColor = `rgb(${colorR}, ${colorG}, ${colorB})`;
+        colorR -= (colorR * 10) / 100;
+        colorG -= (colorR * 10) / 100;
+        colorB -= (colorR * 10) / 100;
+        interaction++;
+      }
+    });
+  });
+});
+
+// btn event that erase
+const btnErase = document.getElementById("btnErase");
+btnErase.addEventListener("click", () => {
+  const squares = document.querySelectorAll(".grid-square");
+  squares.forEach((square) => {
+    square.addEventListener("mouseenter", () => {
+      square.style.backgroundColor = "#fff";
+    });
+  });
 });

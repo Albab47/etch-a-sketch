@@ -67,12 +67,12 @@ body {
   flex-wrap: wrap;
   width: 40rem;
   height: 40rem;
-  border: 10px solid #3081d0;
+  outline: 10px solid #3081d0;
   border-radius: 10px;
 }
 
 .grid-square {
-  border: 1px solid whitesmoke;
+  border: 1px solid rgba(0, 0, 0, 0.052);
   background-color: #fff;
 }
 
